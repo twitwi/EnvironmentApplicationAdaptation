@@ -1,0 +1,16 @@
+
+All the libs can be found in other places, most in maven, including in http://twitwi.github.com/maven-repo/snapshots/ .
+
+
+
+OMiSCID:
+ - the jar
+ - all the deps from mvn depency:copy-depencies
+
+
+GSP:
+ - all the stuff that we get from the tutorial https://github.com/twitwi/GSPTutorial#readme
+ - including the .so link to gstreamer
+
+
+
