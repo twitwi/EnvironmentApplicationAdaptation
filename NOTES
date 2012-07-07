@@ -1,0 +1,25 @@
+
+################################################################################
+### The DNSSD proxy server
+### (goal: root can find avahi, share it to non-root)
+### (positive externality: contrary to avahi, this proxy works fully offline)
+
+sudo OMISCID_DNSSD_FACTORY_VERBOSE_MODE=true java -cp lib/'*' fr.prima.omiscid.dnssd.server.OmiscidDnssdServer
+
+
+################################################################################
+### OMiSCID Gui
+
+omiscid-proxy
+../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui/bin/omiscidgui --userdir $(pwd)/userdir
+
+
+################################################################################
+### Computer exporter
+omiscid-proxy
+omiscid-verbose
+java -cp ../AdapterFramework/ComputerExporter/dist/ComputerExporter.jar:lib/'*'  fr.prima.emonet.computerexporter.ComputerExportManager
+
+
+### INFO
+alias omiscid-proxy='export OMISCID_DNSSD_FACTORY=proxy'
