@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service xmlns="http://www-prima.inrialpes.fr/schemas/omiscid/service.xsd"
+         name="AdapterFactory"
+	 class="" docURL="">
+        <variable name="from">
+            <access>constant</access>
+            <value>Mouse3</value>
+        </variable>
+        <variable name="to">
+            <access>constant</access>
+            <value>TextToSpeechSource for=${id}</value>
+        </variable>
+        <variable name="parameters">
+            <access>constant</access>
+            <value>id: string http://eaa.heeere.com/MouseIdentifier = #(someRequirement TextToSpeechSource for)</value>
+        </variable>
+        <variable name="code">
+            <access>constant</access>
+            <value><![CDATA[xslt:
+<xsl:template match="events/move">
+    <xsl:if test="not($isboing='0') and @x &gt; 20">
+        <setvariable on="isboing">0</setvariable>
+    </xsl:if>
+    <xsl:if test="not($isboing='1') and @x &lt; 15">
+        <two>
+        <setvariable on="isboing">1</setvariable>
+        <message on="say" type="text">boing</message>
+        </two>
+    </xsl:if>
+</xsl:template>
+]]></value>
+        </variable>
+        <variable name="start">
+            <access>constant</access>
+            <value>js:
+                addOutput("say");
+                listenTo("events");
+                addVariable("isboing");
+            </value>
+        </variable>
+</service>
