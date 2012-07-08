@@ -5,7 +5,6 @@
  */
 package com.heeere.eaa.adaptertools;
 
-import com.heeere.eaa.adaptertools.*;
 import fr.prima.omiscid.user.connector.ConnectorListener;
 import fr.prima.omiscid.user.connector.ConnectorType;
 import fr.prima.omiscid.user.connector.Message;

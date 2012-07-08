@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service xmlns="http://www-prima.inrialpes.fr/schemas/omiscid/service.xsd"
+         name="AdapterFactory"
+	 class="" docURL="">
+        <variable name="from">
+            <access>constant</access>
+            <value>MorpionModel</value>
+        </variable>
+        <variable name="to">
+            <access>constant</access>
+            <value>DisplaySource for=${id} z=${z}</value>
+        </variable>
+        <variable name="parameters">
+            <access>constant</access>
+            <value>id: string http://www-prima.imag.fr/DisplayIdentifier = #(someRequirement DisplaySource for)
+w: float http://www-prima.imag.fr/Width = 600
+h: float http://www-prima.imag.fr/Height = 600
+z: float http://www-prima.imag.fr/Z-Order = 40</value>
+        </variable>
+        <variable name="start">
+            <access>constant</access>
+            <value>js:
+                addOutput("display");
+                listenTo("model");
+            </value>
+        </variable>
+        <variable name="code">
+            <access>constant</access>
+            <value><![CDATA[xslt:
+<xsl:template match="model/morpion">
+    <message on="display" type="text">
+        var w = <xsl:value-of select="$w"/> / 3.0;
+        var h = <xsl:value-of select="$h"/> / 3.0;
+        var drawCell = function(x, y, color) {
+                g.translate(x*w,y*h);
+                g.setPaint(color);
+                g.fill(new java.awt.geom.Ellipse2D.Double(0, 0, w, h));
+                g.translate(-x*w,-y*h);
+        };
+        var C = java.awt.Color;
+        var color0 = C.BLACK;
+        var stops = [0, 1];
+        var colors1 = [C.BLACK, C.BLUE];
+        var color1 = new java.awt.RadialGradientPaint(w*3./4., h*2./3., w, stops, colors1);
+        var colors2 = [C.WHITE, C.RED];
+        var color2 = new java.awt.RadialGradientPaint(w/4., h/3., w, stops, colors2);
+        drawCell(0, 0, color<xsl:value-of select="@c0"/>);
+        drawCell(1, 0, color<xsl:value-of select="@c1"/>);
+        drawCell(2, 0, color<xsl:value-of select="@c2"/>);
+        drawCell(0, 1, color<xsl:value-of select="@c3"/>);
+        drawCell(1, 1, color<xsl:value-of select="@c4"/>);
+        drawCell(2, 1, color<xsl:value-of select="@c5"/>);
+        drawCell(0, 2, color<xsl:value-of select="@c6"/>);
+        drawCell(1, 2, color<xsl:value-of select="@c7"/>);
+        drawCell(2, 2, color<xsl:value-of select="@c8"/>);
+        <xsl:if test="number(@win) > 0">
+         var winList = new Array(<xsl:value-of select="translate(@winList, ' ', ',')"/>);
+         var line = new java.awt.geom.GeneralPath();
+         var x0 = w/2 + w * Math.floor(winList[0] % 3);
+         var x1 = w/2 + w * Math.floor(winList[2] % 3);
+         var y0 = h/2 + h * Math.floor(winList[0] / 3);
+         var y1 = h/2 + h * Math.floor(winList[2] / 3);
+         line.moveTo(x0, y0);
+         line.lineTo(x1, y1);
+         g.setColor(<xsl:value-of select="@win"/> == 1 ? C.CYAN : C.decode("0xAA0000"));
+         var s = g.getStroke();
+         g.setStroke(new java.awt.BasicStroke(w/4));
+         g.draw(line);
+         g.setStroke(s);
+        </xsl:if>
+        <xsl:if test="number(@win) = 0">
+         var line = new java.awt.geom.GeneralPath();
+         line.moveTo(w*1.5, h*1.5);
+         for (var i = 0; 75 > i; i++) line.lineTo(Math.random()*w*3., Math.random()*h*3.);
+         g.setColor(C.LIGHT_GRAY);
+         var s = g.getStroke();
+         g.setStroke(new java.awt.BasicStroke(w/30));
+         g.draw(line);
+         g.setStroke(s);
+        </xsl:if>
+    </message>
+</xsl:template>
+]]></value>
+        </variable>
+</service>

@@ -11,14 +11,20 @@ sudo OMISCID_DNSSD_FACTORY_VERBOSE_MODE=true java -cp lib/'*' fr.prima.omiscid.d
 ### OMiSCID Gui
 
 omiscid-proxy
-../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui/bin/omiscidgui --userdir $(pwd)/userdir
-
+../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui/bin/omiscidgui --userdir $(pwd)/userdir --laf javax.swing.plaf.nimbus.NimbusLookAndFeel
 
 ################################################################################
 ### Computer exporter
 omiscid-proxy
 omiscid-verbose
-java -cp ../AdapterFramework/ComputerExporter/dist/ComputerExporter.jar:lib/'*'  fr.prima.emonet.computerexporter.ComputerExportManager
+java -Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel -cp ../AdapterFramework/ComputerExporter/dist/ComputerExporter.jar:lib/'*'  fr.prima.emonet.computerexporter.ComputerExportManager
+
+
+################################################################################
+### Adapters
+
+omiscid-proxy
+./tools/xml-service.sh adapters/mouse3-to-speech.xml
 
 
 ### INFO

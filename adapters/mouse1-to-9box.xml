@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service xmlns="http://www-prima.inrialpes.fr/schemas/omiscid/service.xsd"
+         name="AdapterFactory"
+	 class="" docURL="">
+    <!-- default adapter from a Mouse1 to a 9 cell grid for Morpion like games -->
+        <variable name="from">
+            <access>constant</access>
+            <value>Mouse1</value>
+        </variable>
+        <variable name="to">
+            <access>constant</access>
+            <value>Grid3x3ClickerWithId id=${id}</value>
+        </variable>
+        <variable name="parameters">
+            <access>constant</access>
+            <value>id: float http://www-prima.imag.fr/Grid3x3ClickerIdentifier = #(someRequirement Grid3x3ClickerWithId id)
+w: float http://www-prima.imag.fr/Width = 600
+h: float http://www-prima.imag.fr/Height = 600</value>
+        </variable>
+        <variable name="start">
+            <access>constant</access>
+            <value>js:
+                addOutput("events");
+                listenTo("events");
+            </value>
+        </variable>
+        <variable name="code">
+            <access>constant</access>
+            <value><![CDATA[xslt:
+<xsl:template match="events/click">
+    <xsl:variable name="xx" select="floor(@x * 3 div $w)" />
+    <xsl:variable name="x">
+        <xsl:choose>
+            <xsl:when test="0 > $xx">0</xsl:when>
+            <xsl:when test="$xx > 2">2</xsl:when>
+            <xsl:otherwise><xsl:value-of select="$xx"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="yy" select="floor(@y * 3 div $h)" />
+    <xsl:variable name="y">
+        <xsl:choose>
+            <xsl:when test="0 > $yy">0</xsl:when>
+            <xsl:when test="$yy > 2">2</xsl:when>
+            <xsl:otherwise><xsl:value-of select="$yy"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="cell" select="$x + 3 * $y" />
+    <xsl:variable name="player" select="substring($id, string-length($id))" />
+    <message on="events" type="text"><xsl:value-of select="$player"/><xsl:value-of select="$cell"/></message>
+</xsl:template>
+]]></value>
+        </variable>
+</service>

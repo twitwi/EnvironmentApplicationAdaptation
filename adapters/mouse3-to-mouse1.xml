@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service xmlns="http://www-prima.inrialpes.fr/schemas/omiscid/service.xsd"
+         name="AdapterFactory"
+	 class="" docURL="">
+        <variable name="from">
+            <access>constant</access>
+            <value>Mouse3</value>
+        </variable>
+        <variable name="to">
+            <access>constant</access>
+            <value>Mouse1</value>
+        </variable>
+        <variable name="parameters">
+            <access>constant</access>
+            <value>button1 : int http://www-prima.imag.fr/MouseButton = 3</value>
+        </variable>
+        <variable name="start">
+            <access>constant</access>
+            <value>js:
+                addOutput("events");
+                listenTo("events");
+            </value>
+        </variable>
+        <variable name="code">
+            <access>constant</access>
+            <value><![CDATA[xslt:
+<xsl:template match="events/click[@button=$button1]">
+    <message on="events"><click button="1" x="{@x}" y="{@y}"/></message>
+</xsl:template>
+<xsl:template match="events/move">
+    <message on="events"><move x="{@x}" y="{@y}"/></message>
+</xsl:template>
+]]></value>
+        </variable>
+</service>

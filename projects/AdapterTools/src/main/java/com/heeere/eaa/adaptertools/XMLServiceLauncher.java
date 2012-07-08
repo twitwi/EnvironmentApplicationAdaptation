@@ -34,25 +34,28 @@ public class XMLServiceLauncher {
         Service s = f.createFromXML(new FileInputStream(args[0]));
 
         if (Adapters.isAnAdapterFactory(s)) {
+            String startCode_ = null;
+            if (hasVariable(s, "start")) {
+                startCode_ = s.getVariableValue("start");
+                s.setVariableValue("start", "(((hidden)))"); // shorten the description of the service to work around a problem in omiscid
+            }
+            String adapterCode_ = null;
+            if (hasVariable(s, "code")) {
+                adapterCode_ = s.getVariableValue("code");
+                s.setVariableValue("code", "(((hidden)))"); // shorten the description of the service to work around a problem in omiscid
+            }
+            final String startCode = startCode_;
+            final String adapterCode = adapterCode_;
             s.addConnector("create", "instantiation connector", ConnectorType.INPUT);
             s.addConnectorListener("create", new ConnectorListenerAdapter() {
                 @Override
                 public void messageReceived(Service service, String connector, Message message) {
                     try {
-                        String startCode = null;
-                        if (hasVariable(service, "start")) {
-                            startCode = service.getVariableValue("start");
-                        }
-                        String adapterCode = null;
-                        if (hasVariable(service, "code")) {
-                            adapterCode = service.getVariableValue("code");
-                        }
                         AdapterInstance adapter = Adapters.createAdapterFrom(f, service, message.getBufferAsString(), startCode, adapterCode);
                         adapter.start();
                     } catch (MessageInterpretationException ex) {
                         Logger.getLogger(XMLServiceLauncher.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
                 }
             });
         }
