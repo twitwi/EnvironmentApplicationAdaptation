@@ -2,3 +2,6 @@ userdir
 /projects/ComputerExporter/target/
 /projects/AdapterTools/target/
 /projects/TicTacToe/target/
+/projects/AndroidDeviceExporter/gen/
+/projects/AndroidDeviceExporter/nbandroid/
+/projects/AndroidDeviceExporter/bin/

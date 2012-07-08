@@ -38,3 +38,13 @@ omiscid-proxy
 
 ### INFO
 alias omiscid-proxy='export OMISCID_DNSSD_FACTORY=proxy'
+
+
+
+
+### android omiscid
+update sdk to v15
+create project using netbeans plugin (update site: http://kenai.com/projects/nbandroid/downloads/download/updatecenter/updates.xml)
+add permissions
+add the code in the main
+add links into libs/ , for OMiSCID-2.1.0-SNAPSHOT.jar jmdns-3.4.1.jar
