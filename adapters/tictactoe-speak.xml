@@ -4,7 +4,7 @@
 	 class="" docURL="">
         <variable name="from">
             <access>constant</access>
-            <value>MorpionModel</value>
+            <value>TicTacToeModel</value>
         </variable>
         <variable name="to">
             <access>constant</access>
@@ -29,7 +29,18 @@
     <message on="say" type="text">
         <xsl:if test="number(@player) = 1">blue in </xsl:if>
         <xsl:if test="number(@player) = 2">red in </xsl:if>
-        <xsl:value-of select="@cell"/>
+        <xsl:choose>
+            <xsl:when test="@cell = 0">top left</xsl:when>
+            <xsl:when test="@cell = 1">top</xsl:when>
+            <xsl:when test="@cell = 2">top right</xsl:when>
+            <xsl:when test="@cell = 3">left</xsl:when>
+            <xsl:when test="@cell = 4">center</xsl:when>
+            <xsl:when test="@cell = 5">right</xsl:when>
+            <xsl:when test="@cell = 6">bottom left</xsl:when>
+            <xsl:when test="@cell = 7">bottom</xsl:when>
+            <xsl:when test="@cell = 8">bottom right</xsl:when>
+            <xsl:otherwise><xsl:value-of select="@cell"/></xsl:otherwise>
+        </xsl:choose>
     </message>
 </xsl:template>
 <xsl:template match="output/end">
@@ -40,15 +51,6 @@
         <xsl:value-of select="@cell"/>
     </message>
 </xsl:template>
-<!--xsl:template match="model/morpion">
-    <xsl:if test="number(@win)">
-    <message on="say" type="text" delay="150">
-        <xsl:if test="number(@win) = 0">draw game</xsl:if>
-        <xsl:if test="number(@win) = 1">blue team wins</xsl:if>
-        <xsl:if test="number(@win) = 2">red team wins</xsl:if>
-    </message>
-    </xsl:if>
-</xsl:template-->
 ]]></value>
         </variable>
 </service>

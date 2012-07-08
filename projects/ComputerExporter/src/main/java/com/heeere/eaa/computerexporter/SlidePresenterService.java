@@ -1,4 +1,4 @@
-/**
+ /**
  *
  * Software written by Remi Emonet.
  *
@@ -26,7 +26,6 @@ public class SlidePresenterService {
 
     private Service service;
     private ServiceRepository serviceRepository;
-    private TextSpeaker speaker;
     private final Map<String, String> commands = new HashMap<String, String>() {
         {
             put("previous", "Key Left CurrentWindow");
@@ -39,13 +38,12 @@ public class SlidePresenterService {
     private final String requires = "RemoteControl for=SlidePresenter_" + id;
     private String sendxevent = null;
 
-    public SlidePresenterService(ServiceFactory factory, TextSpeaker speaker, String sendxevent) throws IOException {
-        this(factory, speaker, sendxevent, "SlidePresenter", "events");
+    public SlidePresenterService(ServiceFactory factory, String sendxevent) throws IOException {
+        this(factory, sendxevent, "SlidePresenter", "events");
     }
 
-    public SlidePresenterService(ServiceFactory factory, TextSpeaker speaker, String sendxevent, String serviceName, final String inputConnector) throws IOException {
+    public SlidePresenterService(ServiceFactory factory, String sendxevent, String serviceName, final String inputConnector) throws IOException {
         this.sendxevent = sendxevent;
-        this.speaker = speaker;
         service = factory.create(serviceName);
         service.addVariable("requires", "string", "requirements", VariableAccessType.CONSTANT);
         service.setVariableValue("requires", requires);

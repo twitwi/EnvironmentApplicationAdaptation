@@ -15,16 +15,25 @@ omiscid-proxy
 
 ################################################################################
 ### Computer exporter
+
 omiscid-proxy
 omiscid-verbose
-java -Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel -cp ../AdapterFramework/ComputerExporter/dist/ComputerExporter.jar:lib/'*'  fr.prima.emonet.computerexporter.ComputerExportManager
+java -Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel -cp lib/*:projects/ComputerExporter/target/*  com.heeere.eaa.computerexporter.ComputerExportManager
+
+
+################################################################################
+### TicTacToe
+
+omiscid-proxy
+omiscid-verbose
+java -cp lib/*:projects/TicTacToe/target/* com.heeere.eaa.tictactoe.Main
 
 
 ################################################################################
 ### Adapters
 
 omiscid-proxy
-./tools/xml-service.sh adapters/mouse3-to-speech.xml
+./tools/xml-service.sh adapters/*.xml
 
 
 ### INFO

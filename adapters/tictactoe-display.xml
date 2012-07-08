@@ -4,7 +4,7 @@
 	 class="" docURL="">
         <variable name="from">
             <access>constant</access>
-            <value>MorpionModel</value>
+            <value>TicTacToeModel</value>
         </variable>
         <variable name="to">
             <access>constant</access>
@@ -27,7 +27,7 @@ z: float http://www-prima.imag.fr/Z-Order = 40</value>
         <variable name="code">
             <access>constant</access>
             <value><![CDATA[xslt:
-<xsl:template match="model/morpion">
+<xsl:template match="model/tictactoe">
     <message on="display" type="text">
         var w = <xsl:value-of select="$w"/> / 3.0;
         var h = <xsl:value-of select="$h"/> / 3.0;

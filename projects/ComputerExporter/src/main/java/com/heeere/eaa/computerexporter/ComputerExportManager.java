@@ -108,7 +108,7 @@ public class ComputerExportManager {
                             if (presenterService != null) {
                                 throw new IllegalStateException("internal problem with tts starting logic");
                             }
-                            presenterService = new SlidePresenterService(serviceFactory, speaker, sendxevent);
+                            presenterService = new SlidePresenterService(serviceFactory, sendxevent);
                         } else {
                             presenterService.stop();
                             presenterService = null;
