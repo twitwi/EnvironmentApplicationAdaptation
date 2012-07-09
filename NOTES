@@ -11,7 +11,7 @@ sudo OMISCID_DNSSD_FACTORY_VERBOSE_MODE=true java -cp lib/'*' fr.prima.omiscid.d
 ### OMiSCID Gui
 
 omiscid-proxy
-../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui/bin/omiscidgui --userdir $(pwd)/userdir --laf javax.swing.plaf.nimbus.NimbusLookAndFeel
+../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui/bin/omiscidgui --userdir $(pwd)/userdir
 
 ################################################################################
 ### Computer exporter

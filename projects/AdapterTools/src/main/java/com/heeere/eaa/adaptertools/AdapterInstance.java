@@ -8,6 +8,7 @@ package com.heeere.eaa.adaptertools;
 import fr.prima.omiscid.user.connector.ConnectorListener;
 import fr.prima.omiscid.user.connector.ConnectorType;
 import fr.prima.omiscid.user.connector.Message;
+import fr.prima.omiscid.user.exception.MessageInterpretationException;
 import fr.prima.omiscid.user.service.Service;
 import fr.prima.omiscid.user.service.ServiceFilters;
 import fr.prima.omiscid.user.service.ServiceProxy;
@@ -18,6 +19,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +28,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -94,6 +97,10 @@ public class AdapterInstance {
         return code.startsWith("js:");
     }
 
+    private boolean isMapping(String code) {
+        return code.startsWith("map:");
+    }
+    
     private boolean isXslt(String code) {
         return code.startsWith("xslt:") || code.startsWith("xsl:");
     }
@@ -148,10 +155,7 @@ public class AdapterInstance {
             String startCode = code(startCodeOrNull);
             ConnectorListener listener = new ConnectorListenerAdapter() {
             };
-            if (adaptationCodeOrNull != null) {
-                if (!isXslt(adaptationCodeOrNull)) {
-                    throw new UnsupportedOperationException("Unhandled adapter language for '" + trunc(adaptationCodeOrNull, 10) + "'");
-                }
+            if (adaptationCodeOrNull != null && isXslt(adaptationCodeOrNull)) {
                 listener = new ConnectorListenerAdapter() {
                     @Override
                     public void messageReceived(final Service s, String drainConnectorName, Message m) {
@@ -259,6 +263,33 @@ public class AdapterInstance {
                         }
                     }
                 };
+            } else if (adaptationCodeOrNull != null && isMapping(adaptationCodeOrNull)) {
+                final Map<Pattern, String> mapping = new LinkedHashMap<Pattern, String>();
+                {
+                    String code = code(adaptationCodeOrNull);
+                    String[] maps = code.trim().split(" *\\n *");
+                    for (String map : maps) {
+                        String[] e = map.split(" *-> *");
+                        mapping.put(Pattern.compile("^" + e[0] + "$"), e[1]);
+                    }
+                    listener = new ConnectorListenerAdapter() {
+                        @Override
+                        public void messageReceived(final Service s, String drainConnectorName, Message m) {
+                            try {                            
+                                String in = m.getBufferAsString();
+                                for (Pattern pattern : mapping.keySet()) {
+                                    if (pattern.matcher(in).matches()) {
+                                        s.sendToAllClients("events", Utility.message(pattern.matcher(in).replaceFirst(mapping.get(pattern))));
+                                    }
+                                }
+                            } catch (MessageInterpretationException ex) {
+                                Logger.getLogger(AdapterInstance.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    };
+                }
+            } else {
+                throw new UnsupportedOperationException("Unhandled adapter language for '" + trunc(adaptationCodeOrNull, 10) + "'");
             }
             ScriptEngine eng = new ScriptEngineManager().getEngineByExtension("js");
             eng.put("__dep__", sourceService);
