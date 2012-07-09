@@ -2,6 +2,7 @@ package com.heeere.eaa.androidexporter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import fr.prima.omiscid.user.service.ServiceRepository;
 import fr.prima.omiscid.user.service.ServiceRepositoryListener;
 import fr.prima.omiscid.user.service.impl.ServiceFactoryImpl;
 import fr.prima.omiscid.user.util.Utility;
+import fr.prima.omiscid.user.variable.VariableAccessType;
 
 public class MainActivity extends Activity {
 
@@ -41,6 +43,34 @@ public class MainActivity extends Activity {
                 s.sendToAllClients("androidInited", Utility.message("Hi from " + branding));
             }
         });
+//        registerReceiver(new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                KeyEvent event = (KeyEvent) intent.getExtras().get(Intent.EXTRA_KEY_EVENT);
+//                s.sendToAllClients("androidWaiting", Utility.message(event.toString()));
+//                s.sendToAllClients("androidInited", Utility.message(event.getCharacters()));
+//                s.sendToAllClients("androidInited", Utility.message("" + event.getDownTime()));
+//                s.sendToAllClients("androidInited", Utility.message("" + event.isLongPress()));
+//                /*
+//                 if (ke.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
+//                 }*/
+//
+//            }
+//        }, new IntentFilter(Intent.ACTION_MEDIA_BUTTON));
+        /*
+         View view = (View) this.findViewById(R.id.button);
+         view.setOnKeyListener(new View.OnKeyListener() {
+         public boolean onKey(View v, int keyCode, KeyEvent event) {
+         if (keyCode != KeyEvent.KEYCODE_DPAD_RIGHT) {
+         s.sendToAllClients("androidWaiting", Utility.message(event.toString()));
+         s.sendToAllClients("androidInited", Utility.message(event.getCharacters()));
+         s.sendToAllClients("androidInited", Utility.message(""+event.getDownTime()));
+         s.sendToAllClients("androidInited", Utility.message(""+event.isLongPress()));
+         return true;
+         }
+         return false;
+         }
+         });*/
 
         handler.postDelayed(new Runnable() {
             public void run() {
@@ -48,6 +78,32 @@ public class MainActivity extends Activity {
             }
         }, 2000);
 
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int action = event.getAction();
+        int keyCode = event.getKeyCode();
+        s.sendToAllClients("events", Utility.message("KEY" + keyCode + (action == 0 ? "DOWN" : "UP")));
+
+        s.sendToAllClients("androidWaiting", Utility.message(event.toString()));
+        s.sendToAllClients("androidInited", Utility.message(event.getCharacters()));
+        s.sendToAllClients("androidInited", Utility.message("" + event.getDownTime()));
+        s.sendToAllClients("androidInited", Utility.message("" + event.isLongPress()));
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if (action == KeyEvent.ACTION_UP) {
+                    //TODO
+                }
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (action == KeyEvent.ACTION_DOWN) {
+                    //TODO
+                }
+                return true;
+            default:
+                return super.dispatchKeyEvent(event);
+        }
     }
 
     /**
@@ -81,6 +137,9 @@ public class MainActivity extends Activity {
                     notifyUser("Connector " + localConnectorName + " disconnected from " + Utility.intTo8HexString(peerId));
                 }
             };
+            s.addVariable("provides", "String", "provided functionalities", VariableAccessType.CONSTANT);
+            s.setVariableValue("provides", "GenericEventSource");
+            s.addConnector("events", "all exported events (string)", ConnectorType.OUTPUT);
             s.addConnector("androidInited", "da", ConnectorType.INOUTPUT);
             s.addConnector("androidWaiting", "da", ConnectorType.INOUTPUT);
             s.addConnectorListener("androidInited", logger);
