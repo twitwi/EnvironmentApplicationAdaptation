@@ -27,6 +27,7 @@ public class ComputerExportManager {
     }
     final String espeak = findInPath("espeak");
     final String sendxevent = findInPath("sendxevent");
+    final String amixer = findInPath("amixer");
     private DesktopExportManager content;
     private ServiceFactory serviceFactory;
 
@@ -41,9 +42,13 @@ public class ComputerExportManager {
         if (sendxevent == null) {
             content.setExportPresenterEnabled(false, "Searching for “" + sendxevent + "” failed.");
         }
+        if (amixer == null) {
+            content.setVolumeControllerEnabled(false, "Searching for “" + amixer + "” failed.");
+        }
         content.setAddExportDisplay(addExportDisplay);
         content.getExportSpeechModel().addActionListener(speechExportListener);
         content.getExportPresenterModel().addActionListener(presenterExportListener);
+        content.getVolumeControllerModel().addActionListener(volumeExportListener);
         content.getExportChatModel().addActionListener(chatExportListener);
         manager.setContentPane(content);
         manager.pack();
@@ -106,7 +111,7 @@ public class ComputerExportManager {
                     try {
                         if (startIt) {
                             if (presenterService != null) {
-                                throw new IllegalStateException("internal problem with tts starting logic");
+                                throw new IllegalStateException("internal problem with presenter starting logic");
                             }
                             presenterService = new SlidePresenterService(serviceFactory, sendxevent);
                         } else {
@@ -117,6 +122,33 @@ public class ComputerExportManager {
                         Logger.getLogger(ComputerExportManager.class.getName()).log(Level.SEVERE, null, ex);
                     } finally {
                         content.setExportPresenterEnabled(true, "");
+                    }
+                }
+            }).start();
+        }
+    };
+    private VolumeControllerService volumeService;
+    private ActionListener volumeExportListener = new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            final ButtonModel model = content.getVolumeControllerModel();
+            final boolean startIt = model.isSelected();
+            content.setVolumeControllerEnabled(false, (startIt ? "starting" : "stopping") + " service");
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        if (startIt) {
+                            if (volumeService != null) {
+                                throw new IllegalStateException("internal problem with volume starting logic");
+                            }
+                            volumeService = new VolumeControllerService(serviceFactory, amixer);
+                        } else {
+                            volumeService.stop();
+                            volumeService = null;
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(ComputerExportManager.class.getName()).log(Level.SEVERE, null, ex);
+                    } finally {
+                        content.setVolumeControllerEnabled(true, "");
                     }
                 }
             }).start();
@@ -133,7 +165,7 @@ public class ComputerExportManager {
                     try {
                         if (startIt) {
                             if (chatService != null) {
-                                throw new IllegalStateException("internal problem with tts starting logic");
+                                throw new IllegalStateException("internal problem with chat starting logic");
                             }
                             chatService = new ChatService(serviceFactory, content.getChatAlias());
                         } else {

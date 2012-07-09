@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
                 }
             };
             s.addVariable("provides", "String", "provided functionalities", VariableAccessType.CONSTANT);
-            s.setVariableValue("provides", "GenericEventSource");
+            s.setVariableValue("provides", "AndroidKeys");
             s.addConnector("events", "all exported events (string)", ConnectorType.OUTPUT);
             s.addConnector("androidInited", "da", ConnectorType.INOUTPUT);
             s.addConnector("androidWaiting", "da", ConnectorType.INOUTPUT);

@@ -1,4 +1,4 @@
- /**
+/**
  *
  * Software written by Remi Emonet.
  *
@@ -22,32 +22,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-public class SlidePresenterService {
+public class VolumeControllerService {
 
     private Service service;
     private ServiceRepository serviceRepository;
     private final Map<String, String> commands = new HashMap<String, String>() {
         {
-            put("previous", "Key Left CurrentWindow");
-            put("next", "Key Right CurrentWindow");
-            put("previous+", "Key Up CurrentWindow");
-            put("next+", "Key Down CurrentWindow");
+            put("volumeup", "set Master 5%+");
+            put("volumedown", "set Master 5%-");
+            put("mute", "set Master 0");
         }
     };
     private final String id = "" + Math.random();
-    private final String requires = "RemoteControl for=SlidePresenter_" + id;
-    private String sendxevent = null;
+    private final String requires = "VolumeControl for=VolumeChanger_" + id;
+    private String amixer = null;
 
-    public SlidePresenterService(ServiceFactory factory, String sendxevent) throws IOException {
-        this(factory, sendxevent, "SlidePresenter", "events");
+    public VolumeControllerService(ServiceFactory factory, String amixer) throws IOException {
+        this(factory, amixer, "VolumeChanger", "events");
     }
 
-    public SlidePresenterService(ServiceFactory factory, String sendxevent, String serviceName, final String inputConnector) throws IOException {
-        this.sendxevent = sendxevent;
+    public VolumeControllerService(ServiceFactory factory, String amixer, String serviceName, final String inputConnector) throws IOException {
+        this.amixer = amixer;
         service = factory.create(serviceName);
         service.addVariable("requires", "string", "requirements", VariableAccessType.CONSTANT);
         service.setVariableValue("requires", requires);
-        service.addConnector(inputConnector, "receives commands to control presentation (next, next+, previous, previous+)", ConnectorType.INPUT);
+        service.addConnector(inputConnector, "receives commands for volume control (volumeup, volumedown, mute)", ConnectorType.INPUT);
         service.addConnectorListener(inputConnector, new ConnectorListener() {
             public void messageReceived(Service service, String localConnectorName, Message message) {
                 processCommand(message.getBufferAsStringUnchecked());
@@ -81,10 +80,10 @@ public class SlidePresenterService {
     }
 
     private void processCommand(String command) {
-        String xeventCommand = commands.get(command);
-        if (xeventCommand != null) {
-            System.err.println("Sending xevent “" + xeventCommand + "” in response to remote control command “" + command + "”");
-            exec(sendxevent, xeventCommand);
+        String amixerCommand = commands.get(command);
+        if (amixerCommand != null) {
+            System.err.println("Sending amixer “" + amixerCommand + "” in response to remote control command “" + command + "”");
+            exec((amixer + " " + amixerCommand).split(" "));
         } else {
             System.err.println("Unhandled remote control command “" + command + "”");
         }
@@ -94,7 +93,7 @@ public class SlidePresenterService {
         try {
             Runtime.getRuntime().exec(command);
         } catch (IOException ex) {
-            Logger.getLogger(SlidePresenterService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VolumeControllerService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

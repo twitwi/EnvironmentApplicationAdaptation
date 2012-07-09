@@ -3,15 +3,15 @@
 
         <variable name="from">
             <access>constant</access>
-            <value>GenericEventSource</value>
+            <value>AndroidKeys</value>
         </variable>
         <variable name="to">
             <access>constant</access>
-            <value>RemoteControl for=${id}</value>
+            <value>VolumeControl for=${id}</value>
         </variable>
         <variable name="parameters">
             <access>constant</access>
-            <value>id: float http://www-prima.imag.fr/RemoteControlIdentifier = #(someRequirement RemoteControl for)</value>
+            <value>id: float http://www-prima.imag.fr/VolumeControlIdentifier = #(someRequirement VolumeControl for)</value>
         </variable>
 
         <variable name="start">
@@ -25,9 +25,9 @@
         <variable name="code">
             <access>constant</access>
             <value>map:
-                KEY24UP -> next
-                KEY25UP -> previous
-                KEY80UP -> next
+                KEY24UP -> volumeup
+                KEY25UP -> volumedown
+                KEY80UP -> mute
             </value>
         </variable>
 </service>

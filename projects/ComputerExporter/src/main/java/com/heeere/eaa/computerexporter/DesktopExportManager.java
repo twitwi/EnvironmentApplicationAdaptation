@@ -48,6 +48,7 @@ public class DesktopExportManager extends javax.swing.JPanel {
         exportSlidePresenterCheckbox = new javax.swing.JCheckBox();
         exportChatCheckbox = new javax.swing.JCheckBox();
         chatUserNameTextField = new javax.swing.JTextField();
+        exportVolumeControllerCheckbox = new javax.swing.JCheckBox();
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -90,11 +91,11 @@ public class DesktopExportManager extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addComponent(displayExportDisplayCheckbox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(displayExportMouseCheckbox, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                        .addComponent(displayExportMouseCheckbox, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                     .addGroup(exportDisplayPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(displayDimensionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                        .addComponent(displayDimensionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -112,7 +113,7 @@ public class DesktopExportManager extends javax.swing.JPanel {
                     .addComponent(displayExportDisplayCheckbox)
                     .addComponent(displayExportMouseCheckbox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(startedDisplayExporterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                .addComponent(startedDisplayExporterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -130,6 +131,8 @@ public class DesktopExportManager extends javax.swing.JPanel {
         chatUserNameTextField.setText("jTextField1");
         chatUserNameTextField.setToolTipText("Alias In Chats");
 
+        exportVolumeControllerCheckbox.setText("export volume controller");
+
         javax.swing.GroupLayout exportOthersPanelLayout = new javax.swing.GroupLayout(exportOthersPanel);
         exportOthersPanel.setLayout(exportOthersPanelLayout);
         exportOthersPanelLayout.setHorizontalGroup(
@@ -137,12 +140,16 @@ public class DesktopExportManager extends javax.swing.JPanel {
             .addGroup(exportOthersPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(exportOthersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayExportText2SpeechCheckbox)
-                    .addComponent(exportSlidePresenterCheckbox)
                     .addGroup(exportOthersPanelLayout.createSequentialGroup()
                         .addComponent(exportChatCheckbox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chatUserNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)))
+                        .addComponent(chatUserNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                    .addGroup(exportOthersPanelLayout.createSequentialGroup()
+                        .addGroup(exportOthersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(displayExportText2SpeechCheckbox)
+                            .addComponent(exportSlidePresenterCheckbox)
+                            .addComponent(exportVolumeControllerCheckbox))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         exportOthersPanelLayout.setVerticalGroup(
@@ -153,10 +160,12 @@ public class DesktopExportManager extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(exportSlidePresenterCheckbox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(exportVolumeControllerCheckbox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(exportOthersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(exportChatCheckbox)
                     .addComponent(chatUserNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         add(exportOthersPanel);
@@ -181,6 +190,7 @@ public class DesktopExportManager extends javax.swing.JPanel {
     private javax.swing.JPanel exportDisplayPanel;
     private javax.swing.JPanel exportOthersPanel;
     private javax.swing.JCheckBox exportSlidePresenterCheckbox;
+    private javax.swing.JCheckBox exportVolumeControllerCheckbox;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel startedDisplayExporterPanel;
@@ -220,6 +230,15 @@ public class DesktopExportManager extends javax.swing.JPanel {
         return exportSlidePresenterCheckbox.getModel();
     }
 
+    void setVolumeControllerEnabled(boolean enabled, String cause) {
+        exportVolumeControllerCheckbox.setEnabled(enabled);
+        exportVolumeControllerCheckbox.setToolTipText(cause);
+    }
+    
+    ButtonModel getVolumeControllerModel() {
+        return exportVolumeControllerCheckbox.getModel();
+    }
+
     void setExportChatEnabled(boolean enabled, String cause) {
         exportChatCheckbox.setEnabled(enabled);
         exportChatCheckbox.setToolTipText(cause);
@@ -245,4 +264,5 @@ public class DesktopExportManager extends javax.swing.JPanel {
         startedDisplayExporterPanel.remove(buttons.remove(kill));
         startedDisplayExporterPanel.revalidate();
     }
+
 }

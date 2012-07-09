@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service xmlns="http://www-prima.inrialpes.fr/schemas/omiscid/service.xsd" name="AdapterFactory" class="" docURL="">
+
+        <variable name="from">
+            <access>constant</access>
+            <value>AndroidKeys</value>
+        </variable>
+        <variable name="to">
+            <access>constant</access>
+            <value>RemoteControl for=${id}</value>
+        </variable>
+        <variable name="parameters">
+            <access>constant</access>
+            <value>id: float http://www-prima.imag.fr/RemoteControlIdentifier = #(someRequirement RemoteControl for)</value>
+        </variable>
+
+        <variable name="start">
+            <access>constant</access>
+            <value>js:
+                addOutput("events");
+                listenTo("events");
+            </value>
+        </variable>
+
+        <variable name="code">
+            <access>constant</access>
+            <value>map:
+                KEY24UP -> next
+                KEY25UP -> previous
+                KEY80UP -> next
+            </value>
+        </variable>
+</service>
