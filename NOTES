@@ -37,6 +37,13 @@ omiscid-proxy
 ./tools/xml-service.sh adapters/*.xml
 
 
+
+### WIP
+
+java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthImage=5
+java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthImage=5 diff.usePrevious=true l.level=2 in.skip=1
+
+
 ### INFO
 alias omiscid-proxy='export OMISCID_DNSSD_FACTORY=proxy'
 
