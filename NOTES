@@ -40,9 +40,11 @@ omiscid-proxy
 
 ### WIP
 
-java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthImage=5
-java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthImage=5 diff.usePrevious=true l.level=2 in.skip=1
+java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=5
+java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=5 diff.usePrevious=true l.level=2 in.skip=1
 
+java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-clicklet.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=2 clet.radius=50 ondet.onDelay=10 ondet.offDelay=10
+java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-clicklet.xml in.uri=camera:0 in.width=320 in.height=240 l.level=2 diff.useNthFrame=2 clet.radius=50 ondet.onDelay=10 ondet.offDelay=10
 
 ### INFO
 alias omiscid-proxy='export OMISCID_DNSSD_FACTORY=proxy'

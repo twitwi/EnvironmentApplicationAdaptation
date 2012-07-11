@@ -29,7 +29,7 @@ public class Clicklet extends AbstractModuleEnablable {
     @ModuleParameter
     public float radius = 4;
     @ModuleParameter
-    public float threshold = 100;
+    public float threshold = 50;
     @ModuleParameter
     public int acceptUpTo = 2;
     //
@@ -38,6 +38,9 @@ public class Clicklet extends AbstractModuleEnablable {
     //
 
     public void input(BufferedImage im) {
+        if (!isEnabled()) {
+            return;
+        }
         float vcenter = value(im, 0f, 0f);
         if (!on(vcenter)) {
             output(false);
@@ -72,6 +75,9 @@ public class Clicklet extends AbstractModuleEnablable {
     }
 
     public void forView(BufferedImage im) {
+        if (!isEnabled()) {
+            return;
+        }
         float radiusx = radius * halfWidth;
         float radiusy = radius * halfHeight;
         Graphics2D g = im.createGraphics();
