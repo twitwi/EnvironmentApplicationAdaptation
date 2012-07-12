@@ -32,6 +32,8 @@ public class Clicklet extends AbstractModuleEnablable {
     public float threshold = 50;
     @ModuleParameter
     public int acceptUpTo = 2;
+    @ModuleParameter
+    public boolean viewEnabled = true;
     //
     //
     private static final float HALFSQRT2 = (float) (Math.sqrt(2) / 2f);
@@ -75,7 +77,7 @@ public class Clicklet extends AbstractModuleEnablable {
     }
 
     public void forView(BufferedImage im) {
-        if (!isEnabled()) {
+        if (!viewEnabled) {
             return;
         }
         float radiusx = radius * halfWidth;
