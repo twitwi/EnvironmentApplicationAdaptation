@@ -38,6 +38,16 @@ omiscid-proxy
 
 
 
+################################################################################
+### Fetch All Adapters
+
+mkdir ,,adapters
+(cd ,,adapters && ../tools/update-adapter-library.sh)
+omiscid-proxy
+./tools/xml-service.sh ,,adapters/*.xml
+
+
+
 ### WIP
 
 java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=5
