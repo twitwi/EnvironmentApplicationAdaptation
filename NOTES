@@ -48,7 +48,18 @@ omiscid-proxy
 
 
 
+################################################################################
+### Computer vision button (needs a camera and opencl)
+
+omiscid-proxy
+java -cp lib/'*' -Djna.nosys=true fr.prima.gsp.Launcher pipelines/clicklet-omiscid.xml in.uri=camera:0 in.width=320 in.height=240 l.level=2 diff.useNthFrame=2 clet.radius=50 ondet.onDelay=10 ondet.offDelay=10
+
+
+
+
 ### WIP
+
+MOREOPT="-Djna.nosys=true"
 
 java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=5
 java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=5 diff.usePrevious=true l.level=2 in.skip=1
