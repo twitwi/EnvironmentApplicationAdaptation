@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service xmlns="http://www-prima.inrialpes.fr/schemas/omiscid/service.xsd"
+         name="AdapterFactory"
+	 class="" docURL="">
+        <variable name="from">
+            <access>constant</access>
+            <value>Mouse3</value>
+        </variable>
+        <variable name="to">
+            <access>constant</access>
+            <value>DisplaySource for=${id} z=${z}</value>
+        </variable>
+        <variable name="parameters">
+            <access>constant</access>
+            <value>id : string http://www-prima.imag.fr/DisplayId = #(someRequirement DisplaySource for)
+size : float http://www-prima.imag.fr/CursorSize = 32
+z : float http://www-prima.imag.fr/Z-Order = 90
+color1 : Color http://www-prima.imag.fr/Color = 0x00FFFF
+color2 : Color http://www-prima.imag.fr/Color = 0x000000</value>
+        </variable>
+        <variable name="start">
+            <access>constant</access>
+            <value>js:
+                addOutput("display");
+                listenTo("events");
+            </value>
+        </variable>
+        <variable name="code">
+            <access>constant</access>
+            <value><![CDATA[xslt:
+<xsl:template match="events/move">
+    <message on="display" type="text">
+        var x = <xsl:value-of select="@x"/>;
+        var y = <xsl:value-of select="@y"/>;
+        var s = <xsl:value-of select="$size"/> / 50.0;
+        var C = java.awt.Color;
+        var color1 = C.decode("<xsl:value-of select="$color1"/>");
+        var color2 = C.decode("<xsl:value-of select="$color2"/>");
+        g.translate(x, y);
+//        g.setColor(C.YELLOW);
+//        g.draw(new java.awt.geom.Ellipse2D.Double(-3, -3, 7, 7));
+        var p = java.awt.geom.GeneralPath();
+        p.moveTo(0,0);
+        p.lineTo(s*31.12, s*(50-10.83));
+        p.lineTo(s*12.13, s*(50-15.28));
+        p.lineTo(0, s*50);
+        p.closePath();
+        var grad = new java.awt.GradientPaint(s*5, s*5, color1, s*30, s*40, color2);
+        g.setPaint(grad);
+        g.fill(p);
+        g.setColor(C.WHITE);
+        g.draw(p);
+        g.translate(-x, -y);
+    </message>
+</xsl:template>
+]]></value>
+        </variable>
+</service>
