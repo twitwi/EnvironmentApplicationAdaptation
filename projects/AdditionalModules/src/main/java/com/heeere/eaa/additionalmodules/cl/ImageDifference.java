@@ -33,6 +33,8 @@ public class ImageDifference extends AbstractModuleEnablable {
     public int useNthFrame = 0;
     @ModuleParameter
     public boolean usePrevious = false;
+    @ModuleParameter
+    public boolean refreshOnResolutionChange = true;
     //
     //
     private CLContext context;
@@ -71,7 +73,8 @@ public class ImageDifference extends AbstractModuleEnablable {
             useNthFrame--;
             return;
         }
-        if (useNthFrame == 0) {
+        boolean notSameSize = baseImage != null && (baseImage.getWidth() != im.getWidth() || baseImage.getHeight() != im.getHeight());
+        if (useNthFrame == 0 || (refreshOnResolutionChange && notSameSize)) {
             useNthFrame = -1;
             baseImage = context.createImage2D(CLMem.Usage.InputOutput, im, false);
             return;
@@ -82,7 +85,7 @@ public class ImageDifference extends AbstractModuleEnablable {
         }
         int w = im.getWidth();
         int h = im.getHeight();
-        if (baseImage.getWidth() != im.getWidth() || baseImage.getHeight() != im.getHeight()) {
+        if (notSameSize) {
             System.err.println("Error in ImageDifference: dimensions differ, base: " + baseImage.getWidth() + "x" + baseImage.getHeight() + "  new:" + w + "x" + h);
             return;
         }
