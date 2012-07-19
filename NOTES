@@ -31,6 +31,14 @@ java -cp lib/*:projects/TicTacToe/target/* com.heeere.eaa.tictactoe.Main
 
 
 ################################################################################
+### MagicSnake
+
+omiscid-proxy
+omiscid-verbose
+java -cp lib/*:projects/TicTacToe/target/* com.heeere.eaa.magicsnake.App
+
+
+################################################################################
 ### Adapters
 
 omiscid-proxy

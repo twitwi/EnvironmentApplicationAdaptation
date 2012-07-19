@@ -16,7 +16,7 @@
 
     <!-- plug the "i" output of "for" into the "info" input of "cons" -->
     <!--c chain="for#i - info#cons"/-->
-    <m id="dgui" type="gsp:DebugGUI" what="clet.viewEnabled : boolean(true) ; clet.x: int(100) ; clet.y: int(100) ; clet.radius: int(28) ; l.level: int(4)"/>
+    <m id="dgui" type="gsp:DebugGUI" what="clet.viewEnabled : boolean(true) ; clet.x: int(100) ; clet.y: int(100) ; clet.radius: int(28) ; l.level: int(0)"/>
 
     <!-- create an image source (that uses gstreamer) and a view -->
     <m id="in"   type="gst:ImageSource" uri="data/simple.avi"/>
@@ -24,7 +24,7 @@
     <m id="diff" type="cl:ImageDifference" />
 
     <m id="py" type="pyr:GaussianPyramid"/>
-    <m id="l" type="pyr:LevelSelector" level="4"/>
+    <m id="l" type="pyr:LevelSelector" level="2"/>
     <m id="clet" type="add:Clicklet" x="100" y="100" radius="28" />
     <m id="ondet" type="add:OnsetDetector" />
     <m id="service" type="add:OmiscidService" name="Clicklet" output="events" constant="provides:PressButton"/>
