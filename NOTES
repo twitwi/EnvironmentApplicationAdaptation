@@ -67,6 +67,9 @@ java -cp lib/'*' -Djna.nosys=true fr.prima.gsp.Launcher pipelines/clicklet-omisc
 
 ### WIP
 
+java -cp lib/'*' fr.prima.omiscid.cli.Shell connect Clicklet events
+
+
 MOREOPT="-Djna.nosys=true"
 
 java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=5
