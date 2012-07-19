@@ -35,7 +35,6 @@ java -Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel -cp lib
 ### TicTacToe
 
 omiscid-proxy
-omiscid-verbose
 java -cp lib/'*' com.heeere.eaa.tictactoe.Main
 
 
@@ -43,7 +42,6 @@ java -cp lib/'*' com.heeere.eaa.tictactoe.Main
 ### MagicSnake
 
 omiscid-proxy
-omiscid-verbose
 java -cp lib/'*' com.heeere.eaa.magicsnake.App
 
 

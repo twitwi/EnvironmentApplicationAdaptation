@@ -1,0 +1,44 @@
+
+.obfuscated-mail {text-decoration: underline; font-weight: bold; color: #6f0000;}
+a.obfuscated-mail:hover {color: red;}
+
+.index-main p {font-size: 1.4em; line-height: 1em;}
+.index-main em {font-weight: bold; color: brown;}
+em {color: brown;}
+
+.heeere-style {text-shadow: #6e41a9 .05em .05em .2em;}
+.header p {font-size: 250%; margin:0; margin-left: 2em; margin-bottom: .5em;}
+
+.header a[href]:hover {text-decoration: none; color: black;}
+.header a {text-decoration: none;}
+
+
+/*.notice p, .notice, .header {border: 1px groove red;}*/
+.notice {float: right;}
+.notice p {float: right; padding: 0; margin: 0; font-size: x-small; max-width: 10em; text-align: justify;}
+
+.notice-in-index {display: inline-block; vertical-align: top;}
+.notice-in-index p {margin:0; padding-right: 2em; padding-bottom: 1em;}
+.notice-in-index {font-style: oblique; font-weight: bold; color: #fd3e37; text-shadow: black .05em .05em .1em;}
+.notice-in-index p {max-width: 12em; font-size: large;}
+
+
+/* styling news */
+h5.news {color:#800; border:0px solid red; margin-bottom:0.7em}
+.news-details {border-left: 1px solid grey; padding-left: 2em; font-style: italic;}
+.news:target {text-decoration: underline;}
+
+
+/* styling code */
+pre.code {border: 1px solid green; background: #DFA; padding: .5em;}
+
+
+a.fancy-page-ref {text-decoration: none;}
+.fancy-page-ref div{border: 1px solid green; background: #EEE; padding: .5em; margin-left: 2em; margin-top: .5em;}
+.fancy-page-ref.here div{font-weight: bold; color: black}
+.fancy-page-ref div b{color:red}
+.fancy-page-ref.incoming div{border: 1px solid lightcoral;}
+
+span.update,p.update {color:#800;}
+span.update.old,p.update.old {color:#A55;}
+p.deprecated {text-decoration: line-through;}
