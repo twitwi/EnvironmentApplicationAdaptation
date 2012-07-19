@@ -1,8 +1,10 @@
 androidkeys-to-remotecontrol.xml
 androidkeys-to-volumecontrol.xml
+clicklets-to-remotecontrol.xml
 demo-mouse3-to-speech.xml
 mouse1-to-9box.xml
 mouse1-to-idedmouse1.xml
+mouse3-display.xml
 mouse3-to-mouse1.xml
 tictactoe-display.xml
 tictactoe-speak.xml

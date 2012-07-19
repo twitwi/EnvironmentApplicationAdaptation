@@ -11,3 +11,6 @@ mkdir data
 \cp -t data ../omiscidgui-with-userdir.zip ../all-jars-and-dependencies.zip ../projects/AndroidDeviceExporter/bin/AndroidDeviceExporter-debug.apk
 
 
+(cd ../adapters && ls -1 *.xml) > library.txt
+scp -r data/ *.css *.html library.txt ../adapters/*.xml THERE:/var/www/eaa
+
