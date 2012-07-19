@@ -1,4 +1,12 @@
 
+SEE ALSO:
+ - http://eaa.heeere.com
+
+
+### INFO
+alias omiscid-proxy='export OMISCID_DNSSD_FACTORY=proxy'
+
+
 ################################################################################
 ### The DNSSD proxy server
 ### (goal: root can find avahi, share it to non-root)
@@ -9,17 +17,18 @@ sudo OMISCID_DNSSD_FACTORY_VERBOSE_MODE=true java -cp lib/'*' fr.prima.omiscid.d
 
 ################################################################################
 ### OMiSCID Gui
+### (using latest Java OMiSCID (android compatible), and with the EAA plugin installed)
 
 omiscid-proxy
-../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui/bin/omiscidgui --userdir $(pwd)/userdir
+omiscidgui/bin/omiscidgui --userdir userdir
 
 
 ################################################################################
 ### Computer exporter
 
+export PATH=${PATH}:tools
 omiscid-proxy
-omiscid-verbose
-java -Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel -cp lib/*:projects/ComputerExporter/target/*  com.heeere.eaa.computerexporter.ComputerExportManager
+java -Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel -cp lib/'*'  com.heeere.eaa.computerexporter.ComputerExportManager
 
 
 ################################################################################
@@ -27,7 +36,7 @@ java -Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel -cp lib
 
 omiscid-proxy
 omiscid-verbose
-java -cp lib/*:projects/TicTacToe/target/* com.heeere.eaa.tictactoe.Main
+java -cp lib/'*' com.heeere.eaa.tictactoe.Main
 
 
 ################################################################################
@@ -35,7 +44,7 @@ java -cp lib/*:projects/TicTacToe/target/* com.heeere.eaa.tictactoe.Main
 
 omiscid-proxy
 omiscid-verbose
-java -cp lib/*:projects/TicTacToe/target/* com.heeere.eaa.magicsnake.App
+java -cp lib/'*' com.heeere.eaa.magicsnake.App
 
 
 ################################################################################
@@ -78,9 +87,19 @@ java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-image-difference.
 java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-clicklet.xml in.uri=camera:0 in.width=640 in.height=480 diff.useNthFrame=2 clet.radius=50 ondet.onDelay=10 ondet.offDelay=10
 java -cp lib/'*' $MOREOPT fr.prima.gsp.Launcher pipelines/test-clicklet.xml in.uri=camera:0 in.width=320 in.height=240 l.level=2 diff.useNthFrame=2 clet.radius=50 ondet.onDelay=10 ondet.offDelay=10
 
-### INFO
-alias omiscid-proxy='export OMISCID_DNSSD_FACTORY=proxy'
 
+## GUI
+unzip  ../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui-4.0.zip
+rm -rf userdir
+mkdir userdir
+omiscidgui/bin/omiscidgui --userdir userdir
+  install the two plugins (EAA and ServiceInterconnections)
+zip -r omiscidgui-with-userdir.zip omiscidgui/ userdir
+
+
+
+## GUI OLD
+ ../NetbeansPlatform/OMiSCIDGui/application/target/omiscidgui/bin/omiscidgui --userdir $(pwd)/userdir
 
 
 
@@ -90,3 +109,5 @@ create project using netbeans plugin (update site: http://kenai.com/projects/nba
 add permissions
 add the code in the main
 add links into libs/ , for OMiSCID-2.1.0-SNAPSHOT.jar jmdns-3.4.1.jar
+
+

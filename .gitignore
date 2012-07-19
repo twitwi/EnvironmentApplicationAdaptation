@@ -1,4 +1,6 @@
-userdir
+/omiscidgui/
+/userdir/
+/webpage/data/
 /projects/ComputerExporter/target/
 /projects/AdapterTools/target/
 /projects/TicTacToe/target/
@@ -7,3 +9,7 @@ userdir
 /projects/AndroidDeviceExporter/bin/
 /projects/AdditionalModules/target/
 /projects/MagicSnake/target/
+/lib/*.jar
+/all-jars-and-dependencies.zip
+/omiscidgui-with-userdir.zip
+

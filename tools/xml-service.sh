@@ -14,7 +14,7 @@ then
     do
         x=$1
         shift
-        java -classpath projects/AdapterTools/target/*:lib/* \
+        java -classpath lib/'*' \
             $moreopt \
             com.heeere.eaa.adaptertools.XMLServiceLauncher "$x" &
         toKill="$toKill $!"

@@ -1,0 +1,13 @@
+
+# after proper gui manipulations
+zip -r omiscidgui-with-userdir.zip omiscidgui/ userdir
+
+# after building everything and copying to lib
+zip -r all-jars-and-dependencies.zip lib/
+
+
+
+mkdir data
+cp -t data ../omiscidgui-with-userdir.zip ../all-jars-and-dependencies.zip
+
+
