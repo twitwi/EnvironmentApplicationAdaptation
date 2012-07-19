@@ -8,6 +8,6 @@ zip -r all-jars-and-dependencies.zip lib/
 
 
 mkdir data
-cp -t data ../omiscidgui-with-userdir.zip ../all-jars-and-dependencies.zip
+\cp -t data ../omiscidgui-with-userdir.zip ../all-jars-and-dependencies.zip ../projects/AndroidDeviceExporter/bin/AndroidDeviceExporter-debug.apk
 
 
