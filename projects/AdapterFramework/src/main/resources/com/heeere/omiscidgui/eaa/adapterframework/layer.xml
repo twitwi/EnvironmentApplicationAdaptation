@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="com-heeere-omiscidgui-eaa-adapterframework-BindingPanelAction.instance">
+                <attr name="component" methodvalue="com.heeere.omiscidgui.eaa.adapterframework.BindingPanelTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="com.heeere.omiscidgui.eaa.adapterframework.Bundle#Actions/Window/com-heeere-omiscidgui-eaa-adapterframework-BindingPanelAction.instance"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+                <attr name="iconBase" stringvalue="com/heeere/omiscidgui/eaa/adapterframework/simpleicon.png"/>
+            </file>
+        </folder>
+        <folder name="Omiscid">
+            <file name="com-heeere-omiscidgui-eaa-adapterframework-TestModelAction.instance"/>
+            <file name="com-heeere-omiscidgui-eaa-adapterframework-KillServiceAction.instance"/>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="BindingPanelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/com-heeere-omiscidgui-eaa-adapterframework-BindingPanelAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Omiscid">
+        <folder name="Actions">
+            <file name="TestModelAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Omiscid/com-heeere-omiscidgui-eaa-adapterframework-TestModelAction.instance"/>
+            </file>
+            <file name="KillServiceAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Omiscid/com-heeere-omiscidgui-eaa-adapterframework-KillServiceAction.instance"/>
+            </file>
+        </folder>
+        <folder name="Selectors">
+            <file name="com-heeere-omiscidgui-eaa-adapterframework-KillableServiceSelector.instance"/>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="BindingPanelTopComponent.settings" url="BindingPanelTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="editor">
+                <file name="BindingPanelTopComponent.wstcref" url="BindingPanelTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>

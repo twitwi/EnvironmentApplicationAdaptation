@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+OpenIDE-Module-Localizing-Bundle: com/heeere/omiscidgui/eaa/adapterframework/Bundle.properties
+OpenIDE-Module-Layer: com/heeere/omiscidgui/eaa/adapterframework/layer.xml

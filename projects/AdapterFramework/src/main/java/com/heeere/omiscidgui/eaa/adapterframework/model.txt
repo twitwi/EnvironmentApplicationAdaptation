@@ -1,0 +1,62 @@
+#addBasicType("String")
+#addBasicType("Number")
+#addBasicType("Mode")
+#addBasicType("fr.prima.omiscid.user.service.ServiceProxy")
+#base = "fr.prima.omiscidgui.adapterframework"
+#newListFormat = "CollectionFactory.list()"
+#generateObservable(".model")
+
+
+AdapterFrameworkModel
+ * Adapter      adapters
+ * Requirement  requirements
+ * ProvidedSlot providers
+
+#println("// testing deferred header script")
+Adapter
+   #println("    public static enum Mode {TEMPLATE, PROPOSED, PRESENT, IN_CREATION}")
+   Mode mode
+   RequiredSlot required
+   ProvidedSlot provided
+ * Parameter    parameters
+   fr.prima.omiscid.user.service.ServiceProxy possibleServiceProxy
+
+Parameter
+   String name
+   String type
+   String exactType
+   String defaultValue
+   SpecialValue specialValue
+   String possibleAffectedValue
+
+SpecialValue
+ * String parameters
+
+Requirement
+   ServiceSpecification        specification
+   RequiredSlot                required
+#println("// required won't have any fullfilledBy value")
+ * ExpectedRequirementAutoLink expectedLinks
+   fr.prima.omiscid.user.service.ServiceProxy requiringServiceProxy
+
+ExpectedRequirementAutoLink
+   ProvidedSlot from
+
+ServiceSpecification
+   String name
+ * ServiceProperty serviceProperties
+
+ServiceProperty
+   String name
+   String value
+
+RequiredSlot
+   ServiceSpecification specification
+   ProvidedSlot fullfilledBy
+
+ProvidedSlot
+   ServiceSpecification specification
+   Adapter              possibleParentAdapter
+   fr.prima.omiscid.user.service.ServiceProxy possibleServiceProxy
+
+
