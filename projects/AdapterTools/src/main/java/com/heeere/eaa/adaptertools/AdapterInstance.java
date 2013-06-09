@@ -166,6 +166,7 @@ public class AdapterInstance {
                         try {
                             Source input;
                             {
+                                // TODO HANDLE NON-XML MESSAGES (put the raw text instead)
                                 Document doc = Utility.Xml.createDocument(connectorName);
                                 Element mAsXML = m.getBufferAsXMLUnchecked();
                                 doc.adoptNode(mAsXML);
